@@ -9,10 +9,12 @@
         }
     ],
     "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "~2.0.0",
         "ext-swoole": "*"
     },
     "autoload": {
-        "prs4": {
+        "psr-4": {
             "Snowflake\\": "src/"
         }
     }
