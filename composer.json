@@ -1,0 +1,19 @@
+{
+    "name": "jump2/yii2-snowflake",
+    "description": "yii2 snowflake extension",
+    "license": "Apache 2.0",
+    "authors": [
+        {
+            "name": "Aaron Woo",
+            "email": "707230686@qq.com"
+        }
+    ],
+    "require": {
+        "ext-swoole": "*"
+    },
+    "autoload": {
+        "prs4": {
+            "Monolog\\": "src/",
+        }
+    }
+}
