@@ -48,3 +48,11 @@ Next, you have to configure the Client class in your application configuration:
     'port'          => 5599
 ]
 ```
+
+Use below code to generate id
+
+```
+<?php
+echo \Yii::$app->snowflakeClient->nextId()
+?>
+```
