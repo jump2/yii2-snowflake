@@ -41,7 +41,7 @@ and create console controller like  the file below the example directory, then r
 
 Next, you have to configure the Client class in your application configuration:
 
-```
+```php
 'snowflakeClient' => [
     'class'         => 'Snowflake\Client',
     'host'          => '0.0.0.0',
@@ -51,7 +51,7 @@ Next, you have to configure the Client class in your application configuration:
 
 Use below code to generate id
 
-```
+```php
 <?php
 echo \Yii::$app->snowflakeClient->nextId();
 ?>
