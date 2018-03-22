@@ -37,16 +37,16 @@ class Client extends Component
     protected function connect()
     {
         if (!$this->connect) {
-            $errorMessage = '';
-            for ($i = 0; $i < $this->maxRetry; $i++) {
+            for ($retry = 0; $retry <= $this->maxRetry; $retry++) {
                 try {
                     $this->connect = $this->client->connect($this->host, $this->port);
                     return $this->connect;
                 } catch (\Exception $e) {
-                    $errorMessage = $e->getMessage();
+                    if ($retry == $this->maxRetry) {
+                        throw new ConnectException($e->getMessage());
+                    }
                 }
             }
-            throw new ConnectException($errorMessage);
         } else {
             return $this->connect;
         }
