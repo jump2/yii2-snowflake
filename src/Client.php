@@ -18,9 +18,7 @@ class Client extends Component
     public $port;
 
     /** @var int 连接重试次数 */
-    public $count = 1;
-
-    private static $retryCount = 0;
+    public $maxRetry = 1;
 
     /**
      * 实例化\Swoole\Client
@@ -33,22 +31,22 @@ class Client extends Component
     /**
      * TCP建立连接
      *
-     * @return boolean|integer
+     * @return integer
+     * @throws ConnectException
      */
     protected function connect()
     {
         if (!$this->connect) {
-            try {
-                $this->connect = $this->client->connect($this->host, $this->port);
-                return $this->connect;
-            } catch (\Exception $e) {
-                if (static::$retryCount < $this->count) {
-                    static::$retryCount++;
-                    return $this->connect();
-                } else {
-                    echo 'connect timeout';
+            $errorMessage = '';
+            for ($i = 0; $i < $this->maxRetry; $i++) {
+                try {
+                    $this->connect = $this->client->connect($this->host, $this->port);
+                    return $this->connect;
+                } catch (\Exception $e) {
+                    $errorMessage = $e->getMessage();
                 }
             }
+            throw new ConnectException($errorMessage);
         } else {
             return $this->connect;
         }
@@ -58,6 +56,7 @@ class Client extends Component
      * 获取ID
      *
      * @return boolean|integer
+     * @throws
      */
     public function nextId()
     {
