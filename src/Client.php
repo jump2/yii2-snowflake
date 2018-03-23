@@ -64,7 +64,7 @@ class Client extends Component
             $this->client->send('NEXT');
             return $this->client->recv();
         } else {
-            return false;
+            throw new ConnectException('connect to the snowflake server failed');
         }
     }
 }
