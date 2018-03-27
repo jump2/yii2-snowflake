@@ -42,8 +42,10 @@ class Client extends Component
                     $this->connect = $this->client->connect($this->host, $this->port);
                     return $this->connect;
                 } catch (\Exception $e) {
-                    if ($retry == $this->maxRetry) {
+                    if ($retry >= $this->maxRetry) {
                         throw new ConnectException($e->getMessage());
+                    } else {
+                        $this->client->close();
                     }
                 }
             }
