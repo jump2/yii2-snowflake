@@ -66,7 +66,34 @@ class Client extends Component
             $this->client->send('NEXT');
             return $this->client->recv();
         } else {
-            throw new ConnectException('connect to the snowflake server failed');
+            throw new ConnectException('Connect to the snowflake server failed');
+        }
+    }
+
+    public function stop()
+    {
+        if ($this->connect()) {
+            return $this->client->send('STOP');
+        } else {
+            throw new ConnectException('Stop the snowflake server failed');
+        }
+    }
+
+    public function reload()
+    {
+        if ($this->connect()) {
+            return $this->client->send('RELOAD');
+        } else {
+            throw new ConnectException('Reload the snowflake server failed');
+        }
+    }
+
+    public function status()
+    {
+        if ($this->connect()) {
+            return $this->client->send('STATUS');
+        } else {
+            throw new ConnectException('Load status of the snowflake server failed');
         }
     }
 }
